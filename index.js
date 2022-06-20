@@ -1,23 +1,15 @@
 const mongoose = require('mongoose');
 const Employee = require("./model/employee");
+const express = require('express');
+const app = express();
+const administratorRoute = require("./controller/administrator")
 require('dotenv').config()
-console.log(process.env)
+port = process.env.PORT || 5000;
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.PASSWORD}@cluster0.dfsqs.mongodb.net/?retryWrites=true&w=majority`)
+app.use("/", administratorRoute)
 
-async function run(){
-    const employee1 = await Employee.create(
-        {
-            name: "Fahmida",
-            dateOfJoin:4-5-2020,
-            slotes:[
-                "9.00-9.30AM",
-                "10.00-10.30AM",
-                "1.00-1.30PM"
-            ] 
-                
-             
-        }
-    )
-    console.log(employee1)
-}
-run().catch(console.error)
+
+
+app.listen(port, ()=>{
+    console.log(`listening to port ${port}`)
+})
