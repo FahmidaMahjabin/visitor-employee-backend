@@ -15,16 +15,30 @@ administratorRoute.post("/employee", async(req, res)=>{
 // get all employee list
 administratorRoute.get("/employee", async(req, res) =>{
     const allEmployee = await Employee.find({});
-    // console.log("allEmployee:", allEmployee)
+    console.log("allEmployee:", allEmployee)
     res.send(allEmployee)
 })
 
 // remove an employee
 administratorRoute.delete("/employee", async(req, res) =>{
-    const id = req.params;
+    const id = req.params.id;
+    console.log("id", id)
     const employeeToRemove = await Employee.findById(id);
     const employeeAfterRemoval = await Employee.deleteOne(employeeToRemove);
     res.send(employeeAfterRemoval)
+})
+
+// make employee active or inactive
+administratorRoute.post("/employee/:id", async(req, res) =>{
+    const id = req.params.id;
+    // console.log("id:", id)
+    const employee = await Employee.findById(id);
+
+    const condition = employee.active;
+    console.log("condition:", condition)
+    employee.active = !condition;
+    await employee.save();
+    res.send(employee)
 })
 
 module.exports = administratorRoute;

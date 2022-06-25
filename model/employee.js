@@ -6,6 +6,10 @@ const employeeCollection = new mongoose.Schema(
             required: true,
 
         } ,
+        active: {
+            type: Boolean,
+            default: true,
+        },
         dateOfJoin: Date,
         slotes: [String],
         visitors: [mongoose.SchemaTypes.ObjectId]
