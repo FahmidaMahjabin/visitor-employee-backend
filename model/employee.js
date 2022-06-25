@@ -10,7 +10,10 @@ const employeeCollection = new mongoose.Schema(
             type: Boolean,
             default: true,
         },
-        dateOfJoin: Date,
+        dateOfJoin:{
+            type: Date,
+            required: true,
+        } ,
         slotes: [String],
         visitors: [mongoose.SchemaTypes.ObjectId]
     }
